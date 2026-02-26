@@ -1,7 +1,8 @@
-import { Header } from "../components/header"
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
+import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import { useEffect, useState } from "react";
- 
+
  
 interface Post{
     id: number;
@@ -15,7 +16,7 @@ export default function Blog() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+                const response = await fetch(`${apiUrl}/api/posts`);
                 const data: Post[] = await response.json();
                 setPosts(data);
             } catch (error) {
