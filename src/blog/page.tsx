@@ -9,30 +9,37 @@ interface Post{
     body: string;
     userId: number;
 }
-export const Blog = () => {
+export default function Blog() {
     const [posts, setPosts] = useState<Post[]>([]);
- 
- 
+
     useEffect(() => {
         const fetchPosts = async () => {
-            try{
-            const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-            const data: Post[] = await response.json();
-           
-            setPosts(data);
- 
-        }
-        catch(error){
-            console.error("Error fetching posts:", error);
-        }
+            try {
+                const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+                const data: Post[] = await response.json();
+                setPosts(data);
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+            }
         };
-           fetchPosts();
-        }, []);
-       
-    return(
-      <div>
-        <Header />
-        <Footer />
-      </div>          
-    );
-};
+
+        fetchPosts();
+    }, []);
+
+    return (
+  <div>
+    <Header />
+
+    <h1>Blog Posts</h1>
+
+    {posts.map((post) => (
+      <div key={post.id}>
+        <h2>{post.title}</h2>
+        <p>{post.body}</p>
+      </div>
+    ))}
+
+    <Footer />
+  </div>
+);
+}
