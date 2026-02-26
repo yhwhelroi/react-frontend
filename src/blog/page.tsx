@@ -1,61 +1,38 @@
-import { useEffect, useState } from "react";
+import { Header } from "../components/header"
 import { Footer } from "../components/footer";
-import { Header } from "../components/header";
-
-interface Post {
-  id: number;
-  authorName: string;
-  title: string;
-  content: string;
-  authorId: number;
-  createdAt: string;
+import { useEffect, useState } from "react";
+ 
+ 
+interface Post{
+    id: number;
+    title: string;
+    body: string;
+    userId: number;
 }
-
 export const Blog = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch(
-            "http://localhost:3000/api/post"
-        //   "https://jsonplaceholder.typicode.com/posts"
-        );
-        const data = await response.json();
-
-        const data: Post[] = result.data;
-        console.log("Response", data);
-        setPosts(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-return (
-  <div>
-    <Header />
-        <div>
-            
-        <h1>Blog Posts</h1>
-
-            {posts.map((post, index) => {
-                return (
-                <div key={index}>
-                    <h2>{post.title}</h2>
-                    <p>{post.content}</p>
-                    <p>Author: {post.authorName}</p>
-                </div>
-                );
-            })}
-        </div>
-
-    <Footer />
-  </div>
-)};
+    const [posts, setPosts] = useState<Post[]>([]);
+ 
+ 
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try{
+            const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+            const data: Post[] = await response.json();
+           
+            setPosts(data);
+ 
+        }
+        catch(error){
+            console.error("Error fetching posts:", error);
+        }
+        };
+           fetchPosts();
+        }, []);
+       
+    return(
+      <div>
+        <Header />
+        <Footer />
+      </div>          
+    );
+};
