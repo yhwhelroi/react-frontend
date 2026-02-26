@@ -24,10 +24,10 @@ export default function Blog() {
         const data: Post[] = await response.json();
 
         setPosts(data);
-        setMessage("Data successfully fetched ✅");
+        setMessage("Data successfully fetched");
       } catch (error) {
         console.error("Error fetching posts:", error);
-        setMessage("Failed to fetch data ❌");
+        setMessage("Failed to fetch data");
       } finally {
         setLoading(false);
       }
