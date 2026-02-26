@@ -20,7 +20,7 @@ export default function Blog() {
       try {
         setLoading(true);
 
-        const response = await fetch(`${apiUrl}/api/posts`);
+        const response = await fetch(`${apiUrl}/api/post`);
         const data: Post[] = await response.json();
 
         setPosts(data);
